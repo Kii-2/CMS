@@ -1,0 +1,5 @@
+db.sqlite3
+cms_app\__pycache__
+cms_app\migrations
+cms\__pycache__
+

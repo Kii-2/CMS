@@ -1,0 +1,11 @@
+[
+    {
+      "model": "your_app.city",
+      "pk": 1,
+      "fields": {
+        "name": "Your City Name",
+        "country": 1
+      }
+    }
+  ]
+  
