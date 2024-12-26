@@ -6,6 +6,7 @@ from .serializers import DeviceSerializer, LeadSerializer, WalkInSerializer
 from django.shortcuts import render
 from .models import Device, Vendor
 from django.core.paginator import Paginator
+from . import utilities
 
 class DeviceListView(APIView):
     def get(self, request):
@@ -31,6 +32,15 @@ class LeadCreateView(APIView):
                 token_number=WalkIn.objects.count() + 1,
             )
             # Send email logic here
+            # send email to lead
+            sender_email = 'sender@domain.com'
+            sender_password = 'senderpassword'  #app sepcific password needs to be created
+            utilities.send_email(sender_email, sender_password,lead_data['email'],'Thankyou for visiting us', 'Our representative will contact you soon')
+            
+            # send email to vendor
+            vendor_email = Vendor.objects.get(id = request.data.get('vendor_id')).email
+            utilities.send_email(sender_email, sender_password,vendor_email,'New lead to your product', 'Lead: lead_id is intereted in your product ')
+
             return Response({'token': walk_in.token_number}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

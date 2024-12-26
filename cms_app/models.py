@@ -21,6 +21,7 @@ class Vendor(models.Model):
     address = models.TextField()
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     managed_by_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField()
 
 class Device(models.Model):
     name = models.CharField(max_length=100)
